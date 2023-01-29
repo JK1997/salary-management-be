@@ -1,4 +1,4 @@
-package com.salary.management.salarymanagementwebapp.todo;
+package com.salary.management.salarymanagementwebapp.employee;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import java.util.Date;
 
 @Entity
-public class Todo {
+public class Employee {
 	
 	@Id
 	@GeneratedValue
@@ -17,11 +17,11 @@ public class Todo {
 	private Date targetDate;
 	private boolean isDone;
 	
-	protected Todo() {
+	protected Employee() {
 		
 	}
 	
-	public Todo(long id, String username, String description, Date targetDate, boolean isDone) {
+	public Employee(long id, String username, String description, Date targetDate, boolean isDone) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -86,7 +86,7 @@ public class Todo {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Todo other = (Todo) obj;
+		Employee other = (Employee) obj;
 		if (id != other.id)
 			return false;
 		return true;

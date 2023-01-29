@@ -11,8 +11,6 @@ public class BcryptEncoderTest {
 			String encodedString = encoder.encode("password@!23@#!");
 			System.out.println(encodedString);
 		}
-		
-		// TODO Auto-generated method stub
 
 	}
 
