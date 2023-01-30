@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin(origins="http://localhost:4200")
 @Controller
-@RequestMapping("/api/csv")
+@RequestMapping("/users")
 public class CSVController {
     @Autowired
     CSVService fileService;

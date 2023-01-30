@@ -40,16 +40,19 @@ public class CSVHelper {
 
 
             for (CSVRecord csvRecord : csvRecords) {
+
+                if(checkIfCommentExist(csvRecord)) continue;
+                if(checkIsEmpty(csvRecord)) continue;
+                checkSalaryValue(csvRecord);
+
                 Employee employee = new Employee(
                         csvRecord.get("Id"),
                         csvRecord.get("Login"),
                         csvRecord.get("Name"),
                         new BigDecimal(csvRecord.get("salary"))
                 );
-
                 employees.add(employee);
             }
-
             return employees;
         } catch (IOException e) {
             throw new RuntimeException("fail to parse CSV file: " + e.getMessage());
@@ -57,4 +60,36 @@ public class CSVHelper {
     }
 
     //TODO new validation functions
+    public static void checkSalaryValue(CSVRecord csvRecord){
+        try{
+            double salary = Double.parseDouble(csvRecord.get(3));
+            if (salary < 0.0){
+                throw new IllegalArgumentException("salary is less than 0.0");
+            }
+        } catch (NumberFormatException e){
+            throw new IllegalArgumentException("The salary format is invalid.");
+        }
+    }
+
+    public static boolean checkIfCommentExist(CSVRecord csvRecord){
+        String id = csvRecord.get(0);
+        String login = csvRecord.get(1);
+        String name = csvRecord.get(2);
+
+        if (id.startsWith("#") || login.startsWith("#") || name.startsWith("#")){
+            return true;
+        }
+        return false;
+    }
+
+    public static boolean checkIsEmpty(CSVRecord csvRecord){
+        String id = csvRecord.get(0);
+        String login = csvRecord.get(1);
+        String name = csvRecord.get(2);
+
+        if (id.isEmpty() || login.isEmpty() || name.isEmpty()){
+            return true;
+        }
+        return false;
+    }
 }
