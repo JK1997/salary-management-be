@@ -18,20 +18,19 @@ public class EmployeeJpaResource {
 	private EmployeeJpaRepository employeeJpaRepository;
 
 	
-	@GetMapping("/jpa/users/{username}/employees")
-	public List<Employee> getAllEmployees(@PathVariable String username){
-		return employeeJpaRepository.findByUsername(username);
+	@GetMapping("/jpa/users/{login}/employees")
+	public List<Employee> getAllEmployees(@PathVariable String login){
+		return employeeJpaRepository.findByLogin(login);
 	}
 
-	@GetMapping("/jpa/users/{username}/employees/{id}")
-	public Employee getEmployee(@PathVariable String username, @PathVariable long id){
+	@GetMapping("/jpa/users/{login}/employees/{id}")
+	public Employee getEmployee(@PathVariable String login, @PathVariable String id){
 		return employeeJpaRepository.findById(id).get();
 	}
 
-	//DELETE /users/{username}/employees/{id}
-	@DeleteMapping("/jpa/users/{username}/employees/{id}")
+	@DeleteMapping("/jpa/users/{login}/employees/{id}")
 	public ResponseEntity<Void> deleteEmployee(
-			@PathVariable String username, @PathVariable long id){
+			@PathVariable String login, @PathVariable String id){
 		
 
 		employeeJpaRepository.deleteById(id);
@@ -40,9 +39,9 @@ public class EmployeeJpaResource {
 	}
 	
 	
-	@PutMapping("/jpa/users/{username}/employees/{id}")
+	@PutMapping("/jpa/users/{login}/employees/{id}")
 	public ResponseEntity<Employee> updateEmployee(
-			@PathVariable String username,
+			@PathVariable String login,
 			@PathVariable long id, @RequestBody Employee employee){
 		
 		Employee todoUpdated = employeeJpaRepository.save(employee);
@@ -50,11 +49,11 @@ public class EmployeeJpaResource {
 		return new ResponseEntity<Employee>(employee, HttpStatus.OK);
 	}
 	
-	@PostMapping("/jpa/users/{username}/employees")
+	@PostMapping("/jpa/users/{login}/employees")
 	public ResponseEntity<Void> createEmployee(
-			@PathVariable String username, @RequestBody Employee employee){
+			@PathVariable String login, @RequestBody Employee employee){
 		
-		employee.setUsername(username);
+		employee.setLogin(login);
 		Employee createdEmployee = employeeJpaRepository.save(employee);
 		
 		//Location

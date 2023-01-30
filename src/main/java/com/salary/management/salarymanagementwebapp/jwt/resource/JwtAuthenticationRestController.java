@@ -57,8 +57,8 @@ public class JwtAuthenticationRestController {
     public ResponseEntity<?> refreshAndGetAuthenticationToken(HttpServletRequest request) {
         String authToken = request.getHeader(tokenHeader);
         final String token = authToken.substring(7);
-        String username = jwtTokenUtil.getUsernameFromToken(token);
-        JwtUserDetails user = (JwtUserDetails) jwtInMemoryUserDetailsService.loadUserByUsername(username);
+        String login = jwtTokenUtil.getUsernameFromToken(token);
+        JwtUserDetails user = (JwtUserDetails) jwtInMemoryUserDetailsService.loadUserByUsername(login);
 
         if (jwtTokenUtil.canTokenBeRefreshed(token)) {
             String refreshedToken = jwtTokenUtil.refreshToken(token);
@@ -73,12 +73,12 @@ public class JwtAuthenticationRestController {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
     }
 
-    private void authenticate(String username, String password) {
-        Objects.requireNonNull(username);
+    private void authenticate(String login, String password) {
+        Objects.requireNonNull(login);
         Objects.requireNonNull(password);
 
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(login, password));
         } catch (DisabledException e) {
             throw new AuthenticationException("USER_DISABLED", e);
         } catch (BadCredentialsException e) {
