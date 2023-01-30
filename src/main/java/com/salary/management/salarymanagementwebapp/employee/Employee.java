@@ -1,10 +1,19 @@
 package com.salary.management.salarymanagementwebapp.employee;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.math.BigDecimal;
 import java.util.Date;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 @Entity
 public class Employee {
 
@@ -13,61 +22,8 @@ public class Employee {
 	
 	private String login;
 	private String name;
-	private Date targetDate;
-	private boolean isDone;
-	
-	protected Employee() {
-		
-	}
-	
-	public Employee(String id, String login, String name, Date targetDate, boolean isDone) {
-		super();
-		this.id = id;
-		this.login = login;
-		this.name = name;
-		this.targetDate = targetDate;
-		this.isDone = isDone;
-	}
 
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-	public String getLogin() {
-		return login;
-	}
-
-	public void setLogin(String login) {
-		this.login = login;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Date getTargetDate() {
-		return targetDate;
-	}
-
-	public void setTargetDate(Date targetDate) {
-		this.targetDate = targetDate;
-	}
-
-	public boolean isDone() {
-		return isDone;
-	}
-
-	public void setDone(boolean isDone) {
-		this.isDone = isDone;
-	}
+	private BigDecimal salary;
 
 	@Override
 	public boolean equals(Object obj) {

@@ -42,27 +42,26 @@ public class EmployeeJpaResource {
 	@PutMapping("/jpa/users/{login}/employees/{id}")
 	public ResponseEntity<Employee> updateEmployee(
 			@PathVariable String login,
-			@PathVariable long id, @RequestBody Employee employee){
+			@PathVariable String id, @RequestBody Employee employee){
 		
 		Employee todoUpdated = employeeJpaRepository.save(employee);
 		
 		return new ResponseEntity<Employee>(employee, HttpStatus.OK);
 	}
 	
-	@PostMapping("/jpa/users/{login}/employees")
-	public ResponseEntity<Void> createEmployee(
-			@PathVariable String login, @RequestBody Employee employee){
+	@PostMapping("/jpa/users/{login}/employees/{id}")
+	public ResponseEntity<Employee> createEmployee(
+			@PathVariable String login, @PathVariable String id, @RequestBody Employee employee){
 		
 		employee.setLogin(login);
 		Employee createdEmployee = employeeJpaRepository.save(employee);
-		
-		//Location
-		//Get current resource url
-		///{id}
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+
+
+		/*URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(createdEmployee.getId()).toUri();
 		
-		return ResponseEntity.created(uri).build();
+		return ResponseEntity.created(uri).build();*/
+		return new ResponseEntity<Employee>(employee, HttpStatus.OK);
 	}
 		
 }

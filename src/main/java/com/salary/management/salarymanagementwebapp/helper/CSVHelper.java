@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class CSVHelper {
     public static String TYPE = "text/csv";
-    static String[] HEADERs = { "Id", "Login", "Name", "TargetDate", "isDone" };
 
     public static boolean hasCSVFormat(MultipartFile file) {
 
@@ -38,15 +38,13 @@ public class CSVHelper {
 
             Iterable<CSVRecord> csvRecords = csvParser.getRecords();
 
-            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
             for (CSVRecord csvRecord : csvRecords) {
                 Employee employee = new Employee(
                         csvRecord.get("Id"),
                         csvRecord.get("Login"),
                         csvRecord.get("Name"),
-                        dateFormat.parse(csvRecord.get("TargetDate")),
-                        Boolean.parseBoolean(csvRecord.get("isDone"))
+                        new BigDecimal(csvRecord.get("salary"))
                 );
 
                 employees.add(employee);
@@ -55,8 +53,6 @@ public class CSVHelper {
             return employees;
         } catch (IOException e) {
             throw new RuntimeException("fail to parse CSV file: " + e.getMessage());
-        } catch (ParseException e) {
-            throw new RuntimeException("fail to parse date format: " + e.getMessage());
         }
     }
 
