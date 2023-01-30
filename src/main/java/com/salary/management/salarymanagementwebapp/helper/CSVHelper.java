@@ -18,7 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class CSVHelper {
     public static String TYPE = "text/csv";
-    static String[] HEADERs = { "Id", "Username", "Description", "TargetDate", "isDone" };
+    static String[] HEADERs = { "Id", "Username", "Login", "TargetDate", "isDone" };
 
     public static boolean hasCSVFormat(MultipartFile file) {
 
@@ -42,9 +42,9 @@ public class CSVHelper {
 
             for (CSVRecord csvRecord : csvRecords) {
                 Employee employee = new Employee(
-                        Long.parseLong(csvRecord.get("Id")),
+                        csvRecord.get("Id"),
                         csvRecord.get("Username"),
-                        csvRecord.get("Description"),
+                        csvRecord.get("Login"),
                         dateFormat.parse(csvRecord.get("TargetDate")),
                         Boolean.parseBoolean(csvRecord.get("isDone"))
                 );
@@ -59,4 +59,6 @@ public class CSVHelper {
             throw new RuntimeException("fail to parse date format: " + e.getMessage());
         }
     }
+
+    //TODO new validation functions
 }

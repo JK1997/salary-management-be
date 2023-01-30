@@ -1,8 +1,8 @@
-insert into employee(id, username,description,target_date,is_done)
-values(10001, 'in28minutes', 'Learn JPA', CURRENT_DATE(), false);
+insert into employee(id, username,login,target_date,is_done)
+values('e0005', 'in28minutes', 'Learn JPA', CURRENT_DATE(), false);
 
-insert into employee(id, username,description,target_date,is_done)
-values(10002, 'in28minutes', 'Learn Data JPA', CURRENT_DATE(), false);
+insert into employee(id, username,login,target_date,is_done)
+values('e0006', 'in28minutes', 'Learn Data JPA', CURRENT_DATE(), false);
 
-insert into employee(id, username,description,target_date,is_done)
-values(10003, 'in28minutes', 'Learn Microservices', CURRENT_DATE(), false);
+insert into employee(id, username,login,target_date,is_done)
+values('e0007', 'in28minutes', 'Learn Microservices', CURRENT_DATE(), false);

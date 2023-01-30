@@ -7,13 +7,12 @@ import java.util.Date;
 
 @Entity
 public class Employee {
-	
+
 	@Id
-	@GeneratedValue
-	private Long id;
+	private String id;
 	
 	private String username;
-	private String description;
+	private String login;
 	private Date targetDate;
 	private boolean isDone;
 	
@@ -21,20 +20,20 @@ public class Employee {
 		
 	}
 	
-	public Employee(long id, String username, String description, Date targetDate, boolean isDone) {
+	public Employee(String id, String username, String login, Date targetDate, boolean isDone) {
 		super();
 		this.id = id;
 		this.username = username;
-		this.description = description;
+		this.login = login;
 		this.targetDate = targetDate;
 		this.isDone = isDone;
 	}
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -46,12 +45,12 @@ public class Employee {
 		this.username = username;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getLogin() {
+		return login;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
 	public Date getTargetDate() {
@@ -71,14 +70,6 @@ public class Employee {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		return result;
-	}
-
-	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -92,5 +83,5 @@ public class Employee {
 		return true;
 	}
 
-	
+
 }
