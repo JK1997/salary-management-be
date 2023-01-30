@@ -12,7 +12,7 @@ public class Employee {
 	private String id;
 	
 	private String username;
-	private String login;
+	private String name;
 	private Date targetDate;
 	private boolean isDone;
 	
@@ -20,11 +20,11 @@ public class Employee {
 		
 	}
 	
-	public Employee(String id, String username, String login, Date targetDate, boolean isDone) {
+	public Employee(String id, String username, String name, Date targetDate, boolean isDone) {
 		super();
 		this.id = id;
 		this.username = username;
-		this.login = login;
+		this.name = name;
 		this.targetDate = targetDate;
 		this.isDone = isDone;
 	}
@@ -45,12 +45,12 @@ public class Employee {
 		this.username = username;
 	}
 
-	public String getLogin() {
-		return login;
+	public String getName() {
+		return name;
 	}
 
-	public void setLogin(String login) {
-		this.login = login;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public Date getTargetDate() {
