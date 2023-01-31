@@ -56,7 +56,6 @@ public class CSVHelper {
         }
     }
 
-    //TODO new validation functions
     public static void checkSalaryValue(CSVRecord csvRecord){
         try{
             double salary = Double.parseDouble(csvRecord.get(3));
