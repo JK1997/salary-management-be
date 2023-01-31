@@ -1,21 +1,17 @@
 package com.salary.management.salarymanagementwebapp.helper;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.salary.management.salarymanagementwebapp.employee.Employee;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.web.multipart.MultipartFile;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CSVHelper {
     public static String TYPE = "text/csv";
@@ -32,9 +28,9 @@ public class CSVHelper {
     public static List<Employee> csvToEmployees(InputStream is) {
         try (BufferedReader fileReader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
              CSVParser csvParser = new CSVParser(fileReader,
-                     CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim());) {
+                     CSVFormat.DEFAULT.withFirstRecordAsHeader().withIgnoreHeaderCase().withTrim())) {
 
-            List<Employee> employees = new ArrayList<Employee>();
+            List<Employee> employees = new ArrayList<>();
 
             Iterable<CSVRecord> csvRecords = csvParser.getRecords();
 
@@ -44,6 +40,7 @@ public class CSVHelper {
                 if(checkIfCommentExist(csvRecord)) continue;
                 if(checkIsEmpty(csvRecord)) continue;
                 checkSalaryValue(csvRecord);
+                checkColumnSizeExceed(csvRecord);
 
                 Employee employee = new Employee(
                         csvRecord.get("Id"),
@@ -76,10 +73,7 @@ public class CSVHelper {
         String login = csvRecord.get(1);
         String name = csvRecord.get(2);
 
-        if (id.startsWith("#") || login.startsWith("#") || name.startsWith("#")){
-            return true;
-        }
-        return false;
+        return id.startsWith("#") || login.startsWith("#") || name.startsWith("#");
     }
 
     public static boolean checkIsEmpty(CSVRecord csvRecord){
@@ -87,9 +81,19 @@ public class CSVHelper {
         String login = csvRecord.get(1);
         String name = csvRecord.get(2);
 
-        if (id.isEmpty() || login.isEmpty() || name.isEmpty()){
-            return true;
+        return id.isEmpty() || login.isEmpty() || name.isEmpty();
+    }
+
+    public static void checkColumnSizeExceed(CSVRecord csvRecord){
+        try{
+            int numColumns = csvRecord.size();
+
+            if (numColumns > 4) {
+                throw new IllegalArgumentException("Number of Columns is more than 4");
+            }
+        } catch (NumberFormatException e){
+            throw new IllegalArgumentException("Number of Columns cannot be identified");
+
         }
-        return false;
     }
 }
