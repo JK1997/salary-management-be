@@ -18,19 +18,18 @@ public class EmployeeJpaResource {
 	private EmployeeJpaRepository employeeJpaRepository;
 
 	
-	@GetMapping("/jpa/users/{login}/employees")
-	public List<Employee> getAllEmployees(@PathVariable String login){
-		return employeeJpaRepository.findByLogin(login);
+	@GetMapping("/jpa/users/employees")
+	public List<Employee> getAllEmployees(){
+		return employeeJpaRepository.findAll();
 	}
 
-	@GetMapping("/jpa/users/{login}/employees/{id}")
-	public Employee getEmployee(@PathVariable String login, @PathVariable String id){
+	@GetMapping("/jpa/users/employees/{id}")
+	public Employee getEmployee(@PathVariable String id){
 		return employeeJpaRepository.findById(id).get();
 	}
 
-	@DeleteMapping("/jpa/users/{login}/employees/{id}")
-	public ResponseEntity<Void> deleteEmployee(
-			@PathVariable String login, @PathVariable String id){
+	@DeleteMapping("/jpa/users/employees/{id}")
+	public ResponseEntity<Void> deleteEmployee(@PathVariable String id){
 		
 
 		employeeJpaRepository.deleteById(id);
@@ -39,21 +38,18 @@ public class EmployeeJpaResource {
 	}
 	
 	
-	@PutMapping("/jpa/users/{login}/employees/{id}")
-	public ResponseEntity<Employee> updateEmployee(
-			@PathVariable String login,
-			@PathVariable String id, @RequestBody Employee employee){
+	@PutMapping("/jpa/users/employees/{id}")
+	public ResponseEntity<Employee> updateEmployee(@PathVariable String id, @RequestBody Employee employee){
 		
 		Employee todoUpdated = employeeJpaRepository.save(employee);
 		
 		return new ResponseEntity<Employee>(employee, HttpStatus.OK);
 	}
 	
-	@PostMapping("/jpa/users/{login}/employees/{id}")
+	@PostMapping("/jpa/users/employees/{id}")
 	public ResponseEntity<Employee> createEmployee(
-			@PathVariable String login, @PathVariable String id, @RequestBody Employee employee){
-		
-		employee.setLogin(login);
+			@PathVariable String id, @RequestBody Employee employee){
+
 		Employee createdEmployee = employeeJpaRepository.save(employee);
 
 
