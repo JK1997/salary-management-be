@@ -2,6 +2,9 @@ package com.salary.management.salarymanagementwebapp.employee;
 
 import com.salary.management.salarymanagementwebapp.message.ResponseMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +25,6 @@ public class EmployeeJpaResource {
 	@Autowired
 	private EmployeeJpaRepository employeeJpaRepository;
 
-	
 	/*@GetMapping("/jpa/users/employees")
 	public List<Employee> getAllEmployees(){
 		return employeeJpaRepository.findAll();
@@ -33,9 +35,9 @@ public class EmployeeJpaResource {
 	public ResponseEntity<Object> getAllEmployees
 			(@RequestParam(defaultValue = "0") BigDecimal minSalary,
 			 @RequestParam(defaultValue = "99999999") BigDecimal maxSalary,
-			 @RequestParam(defaultValue = "0") BigDecimal offset,
-			 @RequestParam(defaultValue = "30") BigDecimal limit,
-			 @RequestParam(defaultValue = "asc") String sort){
+			 @RequestParam(defaultValue = "asc") String sort,
+			 @RequestParam(defaultValue = "0") int pageNumber,
+			 @RequestParam(defaultValue = "30") int pageSize){
 		Map<String, Object> responseMap = new HashMap<>();
 		try {
 			responseMap.put("results", employeeJpaRepository.findEmployeeBySalary(minSalary, maxSalary));
