@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,24 +36,24 @@ public class EmployeeJpaResource {
 	public ResponseEntity<Object> getAllEmployees
 			(@RequestParam(defaultValue = "0") BigDecimal minSalary,
 			 @RequestParam(defaultValue = "99999999") BigDecimal maxSalary,
-			 @RequestParam(defaultValue = "asc") String sort,
+			 @RequestParam(defaultValue = "ASC") String sort,
 			 @RequestParam(defaultValue = "0") int pageNumber,
 			 @RequestParam(defaultValue = "30") int pageSize){
 		Map<String, Object> responseMap = new HashMap<>();
 		try {
 			long totalNumberOfEmployees = 0;
-			Pageable employeePagination = PageRequest.of(pageNumber, pageSize);
+			Pageable employeePagination = PageRequest.of(pageNumber, pageSize, Sort.Direction.valueOf(sort.toUpperCase()), "id");
 			List<Employee> employeeList = employeeJpaRepository.findEmployeeBySalary(minSalary, maxSalary, employeePagination);
 
-			if (responseMap != null){
+			if (employeeList != null){
 				totalNumberOfEmployees = employeeList.size();
 			}
 			responseMap.put("results", employeeList);
+			responseMap.put("totalNumberOfEmployees", totalNumberOfEmployees);
 		} catch (Exception e) {
 			throw new ResponseStatusException(
 					HttpStatus.BAD_REQUEST);
 		}
-//		return "minSalary: " + minSalary + " maxSalary: " + maxSalary + " offset: " + offset + " limit: " + limit + " sort: " + sort;
 		return new ResponseEntity<>(responseMap, HttpStatus.OK);
 	}
 
