@@ -40,7 +40,14 @@ public class EmployeeJpaResource {
 			 @RequestParam(defaultValue = "30") int pageSize){
 		Map<String, Object> responseMap = new HashMap<>();
 		try {
-			responseMap.put("results", employeeJpaRepository.findEmployeeBySalary(minSalary, maxSalary));
+			long totalNumberOfEmployees = 0;
+			Pageable employeePagination = PageRequest.of(pageNumber, pageSize);
+			List<Employee> employeeList = employeeJpaRepository.findEmployeeBySalary(minSalary, maxSalary, employeePagination);
+
+			if (responseMap != null){
+				totalNumberOfEmployees = employeeList.size();
+			}
+			responseMap.put("results", employeeList);
 		} catch (Exception e) {
 			throw new ResponseStatusException(
 					HttpStatus.BAD_REQUEST);
