@@ -9,12 +9,14 @@ import com.salary.management.salarymanagementwebapp.employee.EmployeeJpaReposito
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import javax.transaction.Transactional;
 
 @Service
 public class CSVService {
     @Autowired
     EmployeeJpaRepository employeeJpaRepository;
 
+    @Transactional
     public void save(MultipartFile file) {
         try {
             List<Employee> employees = CSVHelper.csvToEmployees(file.getInputStream());
