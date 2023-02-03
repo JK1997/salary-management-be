@@ -14,6 +14,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.math.BigDecimal;
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,14 +41,16 @@ public class EmployeeJpaResource {
 			 @RequestParam(defaultValue = "0") int pageNumber,
 			 @RequestParam(defaultValue = "30") int pageSize,
 			 @RequestParam(defaultValue = "id") String sortActive){
-		Map<String, Object> responseMap = new HashMap<>();
+		HashMap<String, Object> responseMap = new HashMap<>();
 		try {
 			long totalNumberOfEmployees = 0;
+			List<Employee> employeeList = new ArrayList<>();
 			Pageable employeePagination = PageRequest.of(pageNumber, pageSize, Sort.Direction.valueOf(sort.toUpperCase()), sortActive);
-			List<Employee> employeeList = employeeJpaRepository.findEmployeeBySalary(minSalary, maxSalary, employeePagination);
+			Page<Employee> employeePage = employeeJpaRepository.findEmployeeBySalary(minSalary, maxSalary, employeePagination);
 
-			if (employeeList != null){
-				totalNumberOfEmployees = employeeList.size();
+			if (employeePage != null){
+				employeeList = employeePage.getContent();
+				totalNumberOfEmployees = employeePage.getTotalElements();
 			}
 			responseMap.put("results", employeeList);
 			responseMap.put("totalNumberOfEmployees", totalNumberOfEmployees);
