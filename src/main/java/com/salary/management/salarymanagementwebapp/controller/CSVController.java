@@ -19,12 +19,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 @CrossOrigin(origins="http://localhost:4200")
 @Controller
-@RequestMapping("/users")
 public class CSVController {
     @Autowired
     CSVService fileService;
 
-    @PostMapping("/upload")
+    @PostMapping("/jpa/users/upload")
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
         String message = "";
 
