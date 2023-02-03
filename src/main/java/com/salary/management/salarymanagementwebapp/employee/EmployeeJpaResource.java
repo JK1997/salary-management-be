@@ -38,11 +38,12 @@ public class EmployeeJpaResource {
 			 @RequestParam(defaultValue = "99999999") BigDecimal maxSalary,
 			 @RequestParam(defaultValue = "ASC") String sort,
 			 @RequestParam(defaultValue = "0") int pageNumber,
-			 @RequestParam(defaultValue = "30") int pageSize){
+			 @RequestParam(defaultValue = "30") int pageSize,
+			 @RequestParam(defaultValue = "id") String sortActive){
 		Map<String, Object> responseMap = new HashMap<>();
 		try {
 			long totalNumberOfEmployees = 0;
-			Pageable employeePagination = PageRequest.of(pageNumber, pageSize, Sort.Direction.valueOf(sort.toUpperCase()), "id");
+			Pageable employeePagination = PageRequest.of(pageNumber, pageSize, Sort.Direction.valueOf(sort.toUpperCase()), sortActive);
 			List<Employee> employeeList = employeeJpaRepository.findEmployeeBySalary(minSalary, maxSalary, employeePagination);
 
 			if (employeeList != null){
