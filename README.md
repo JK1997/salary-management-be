@@ -17,7 +17,7 @@
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
-    <li><a href="#usage">Usage and Demonstration</a></li>
+    <li><a href="#usage / demonstration">Usage and Demonstration</a></li>
     <li><a href="#improvements">Improvements</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -105,7 +105,7 @@ This section describes how to use the main features of this app:
 
 * You may execute the query in h2 console
 
-==========================================================================================
+================================================================================
 
 ### JWT API: _http://localhost:8080/authenticate_
 
@@ -117,7 +117,7 @@ This section describes how to use the main features of this app:
   1. Origin: http://localhost:4200
   2. Content-Type: application/json
 
-==========================================================================================
+================================================================================
 
 ### GET All Employees API: http://localhost:8080/jpa/users/employees?minSalary=1&maxSalary=99999&pageNumber=&pageSize=&sort=asc&sortActive=id
 
@@ -129,7 +129,7 @@ This section describes how to use the main features of this app:
   1. Origin: http://localhost:4200
   2. Authorization: Bearer + [COPY THE JWT TOKEN TO HERE]
   
-==========================================================================================
+================================================================================
 
 ### File Upload API: _http://localhost:8080/jpa/users/upload_
 
@@ -142,7 +142,7 @@ This section describes how to use the main features of this app:
     1. Origin: http://localhost:4200
     2. Authorization: Bearer + [COPY THE JWT TOKEN TO HERE]
 
-==========================================================================================
+================================================================================
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
