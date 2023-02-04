@@ -31,11 +31,11 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](http://localhost:4200/)
+[![Salary Management App - BE][product-screenshot]](http://localhost:8080/h2-console)
 
-## Salary Management App - FE
+## Salary Management App - BE
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.1.1.
+This project was generated with [Spring Boot](https://start.spring.io/) version 2.7.7 with Java 17.
 
 _You may refer to this [document](src/assets/GDS%20SWE%20Challenge.pdf) for further information about the requirements
 on
@@ -46,12 +46,9 @@ how to develop this project._
 
 ### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for
-the acknowledgements section. Here are a few examples.
+The following is the major frameworks / libraries used to bootstrap this project.
 
 * [![Spring Boot][Spring-boot-img]][spring-boot-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -65,35 +62,32 @@ Please follow the instructions below on setting up this project locally.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+Please ensure that you run both FE and BE applications concurrently.
 
-* npm
-  ```sh
-  npm install -g @angular/cli
-  ```
-* Install Angular MUI
-  ```sh
-  ng add @angular/material
-  ```
+[https://github.com/Ong-Jun-Kai/salary-management-fe](https://github.com/Ong-Jun-Kai/salary-management-fe)
+
+[https://github.com/Ong-Jun-Kai/salary-management-be](https://github.com/Ong-Jun-Kai/salary-management-be)
 
 ### Installation
 
-Please installing and setting up your app.
+Please installing and setting up your app with the following steps:
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/Ong-Jun-Kai/salary-management-fe
+   git clone https://github.com/Ong-Jun-Kai/salary-management-be
 
    ```
-2. Use cmd and cd to the project path. Run `ng serve`. Navigate to `http://localhost:4200/`. The application will
-   automatically reload if you
-   change any of the source files.
+
+2. Run the application using an IDE. Navigate to [http://localhost:8080/h2-console](http://localhost:8080/h2-console).
 
 
-3. Login credentials
+3. Login credentials of H2 console is:
 
-  * Username: JunKai
-  * Password: dummy
+[![Salary Management App - BE][h2-login]](http://localhost:8080/h2-console)
+
+* JDBC URL: jdbc:h2:~/data/test
+* Username: sa
+* Password: password
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -101,60 +95,57 @@ Please installing and setting up your app.
 
 <!-- USAGE EXAMPLES -->
 
-## Usage
+## Usage / Demonstration
 
-Following is the demonstration on how to use the app:
+### H2 DB Console
 
-![Upload File][upload-file-img]
+This section describes how to use the main features of this app:
 
-* You can start using the app by uploading a csv file with the employee and salary records.
+![SQL Statement][sql-statement-img]
 
-_Please use attached [csv file](src/assets/employee.csv) for your convenience._
-
-==========================================================================================
-
-![Filter Salary][filter-salary-img]
-
-* You can filter the table by inserting salary range which accept in number format only
+* You may execute the query in h2 console
 
 ==========================================================================================
 
-![Sorting][sorting-img]
+### JWT API: _http://localhost:8080/authenticate_
 
-* You can click the table header's arrow to sort the records in ascending or descending order
+![JWT API][api-jwt-img]
 
-==========================================================================================
+* In order to visualize the API through Postman, you need to send a post request to authenticate for a JWT token.
+* Headers key and value:
 
-![Update and Delete][update-delete-img]
-
-* You are able to update and delete the records. A confirmation message will prompt out if you click the delete button.
-
-==========================================================================================
-
-![Pagination][pagination-img]
-
-* You can sort the items per page to be displayed using the pagination below the table
+  1. Origin: http://localhost:4200
+  2. Content-Type: application/json
 
 ==========================================================================================
 
-![Add record][add-img]
+### GET All Employees API: http://localhost:8080/jpa/users/employees?minSalary=1&maxSalary=99999&pageNumber=&pageSize=&sort=asc&sortActive=id
 
-* You may add a record by clicking the ADD button which will route to a record inserting page
+![GET All Employees API][get-all-employees-api-img]
 
+* You can get a list of employees returned using this API
+* Headers key and value:
+
+  1. Origin: http://localhost:4200
+  2. Authorization: Bearer + [COPY THE JWT TOKEN TO HERE]
+  
 ==========================================================================================
 
-![Save record][save-records-img]
+### File Upload API: _http://localhost:8080/jpa/users/upload_
 
-* Updating a record - there will be existing record bind to the input field
-* Adding a record - there will be empty record in the form
+![File Upload API][file-upload-api-img]
 
-_Please be reminded that you need to pass the input validation in order to save the records._
+* You can either do the file upload using Postman or via the UI button.
+* If you are using Postman, please select the form-data with file type in order to upload a csv file 
+* Headers key and value:
+
+    1. Origin: http://localhost:4200
+    2. Authorization: Bearer + [COPY THE JWT TOKEN TO HERE]
+
+==========================================================================================
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-<!-- ROADMAP -->
-
 
 <!-- IMPROVEMENTS -->
 
@@ -165,11 +156,9 @@ There are several User Stories that I did not accomplish such as User Story 4 & 
 I would like to enhance this project in the future such as following:
 
 1. Implement more unit testing using jUnit
-2. Improve the UI be more mobile responsive and user-friendly
-3. Salary range validation
-4. Add a back button in employee page
-5. Organise the files in better structure
-6. Better error handling for REST
+2. Salary range validation
+3. Organise the files in better structure
+4. Better error handling for REST
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -185,7 +174,7 @@ Don't forget to give the project a star! Thanks again!
 
 Jun Kai - [@my_LinkedIn](https://www.linkedin.com/in/jun-kai-ong-1b222518b) - ongjunkai@ecquaria.com
 
-Project Link: [https://github.com/Ong-Jun-Kai/salary-management-fe](https://github.com/Ong-Jun-Kai/salary-management-fe)
+Project Link: [https://github.com/Ong-Jun-Kai/salary-management-be](https://github.com/Ong-Jun-Kai/salary-management-be)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -195,9 +184,8 @@ Project Link: [https://github.com/Ong-Jun-Kai/salary-management-fe](https://gith
 
 ## Acknowledgments
 
-List of resources that I find helpful and would like to give credit to. 
-* [Angular Bootstrap](https://valor-software.com/ngx-bootstrap/old/6.2.0/#/documentation#getting-started)
-* [Angular Material](https://material.angular.io/guide/getting-started)
+List of resources that I find helpful and would like to give credit to.
+
 * [Question regarding Spring Boot](https://www.baeldung.com/)
 * [Angular University](https://blog.angular-university.io/angular-file-upload/)
 * [Udemy tutorial](https://ecquaria.udemy.com/course/full-stack-application-development-with-spring-boot-and-angular/learn/lecture/12537586#overview)
@@ -233,7 +221,9 @@ List of resources that I find helpful and would like to give credit to.
 
 [linkedin-url]: https://linkedin.com/in/othneildrew
 
-[product-screenshot]: src/assets/images/homePage.png
+[product-screenshot]: src/main/resources/images/h2Console.png
+
+[h2-login]: src/main/resources/images/h2Login.png
 
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 
@@ -247,7 +237,7 @@ List of resources that I find helpful and would like to give credit to.
 
 [Vue-url]: https://vuejs.org/
 
-[Spring-boot-img]: src/assets/images/spring-boot.png
+[Spring-boot-img]: src/main/resources/images/spring-boot.png
 
 [spring-boot-url]: https://spring.io/projects/spring-boot
 
@@ -271,16 +261,10 @@ List of resources that I find helpful and would like to give credit to.
 
 [JQuery-url]: https://jquery.com
 
-[filter-salary-img]: src/assets/images/filterSalary.PNG
+[sql-statement-img]: src/main/resources/images/sqlStatement.png
 
-[upload-file-img]: src/assets/images/uploadFile.PNG
+[api-jwt-img]: src/main/resources/images/api-JWT.png
 
-[save-records-img]: src/assets/images/saveRecords.PNG
+[get-all-employees-api-img]: src/main/resources/images/get-all-employees-api.png
 
-[sorting-img]: src/assets/images/sorting.PNG
-
-[update-delete-img]: src/assets/images/update&delete.PNG
-
-[pagination-img]: src/assets/images/pagination.PNG
-
-[add-img]: src/assets/images/add.PNG
+[file-upload-api-img]: src/main/resources/images/fileUpload-api.png
